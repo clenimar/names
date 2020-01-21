@@ -5,9 +5,11 @@ import sqlite3
 from flask import g
 from flask import Flask
 from flask import request
+from flask_cors import CORS
 
 
 app = Flask(__name__)
+CORS(app)
 DB = "db/names.db"
 
 
@@ -53,7 +55,7 @@ def get_first_name(uid):
 def get_middle_name(uid):
     """get the middle name of given a user."""
     mn = query_db("select middleName from users where id = ?", [uid], one=True)
-    return json.dumps({"firstName": mn[0]})
+    return json.dumps({"middleName": mn[0]})
 
 
 @app.route("/user/<int:uid>/lastname", methods=["GET"])
